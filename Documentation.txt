@@ -1,0 +1,49 @@
+Zadanie:
+Úlohou bolo vytvoriť API pre aplikáciu na správu ToDo zoznamov v Node.JS. Aplikácia mala byť restless,
+rešpektovať základné princípy REST a byť napísana fo frameworku založenom na ExpressJS, NestJS alebo Feather JS.
+
+
+Použité technológie:
+
+ExpressJS:
+Použil som ExpressJS framework, lebo mi prišiel jednoduchý na pochopenie a väčšina 
+podkladov, ktorých som našiel ho tiež používali. Hlavne na parsing JSON vstupov
+bol veľmi dôležitý.
+
+mySQL:
+Čo sa týka databázy, vybral som si mySQL, lebo mám už zo školy skúsenosti robiť
+s SQL, čiže príkazy potrebné na túto úlohu a vytváranie DB a tabuliek v nej už som ovládal.
+
+joi:
+Na validáciu vstupných dát som sa rozhodol použiť joi API z npm.
+Dovolilo mi to navrhnúť si vstupné schémy a pomocou nich validovať vstup,
+čiže mi stačilo poslať vstupné údaje na validáciu a handling chýb a výstupov už riesil joi.
+
+bcrypt:
+Bcrypt je API, ktorou som zahesloval heslá zaregistrovaných uživateľov kvôli väčšej bezpečnosti.
+Aj keď toto možno nie je potrebné pre takýto malý projekt, pre väčšie si myslím, že je 
+nevyhnutné heslá zašifrovať, takže nebude potrebné to v budúcnosti meniť. 
+
+Spojenie databázy s logikou:
+
+Databázu som spojil pomocou require("mysql") a mysql.createConnection. Atribúty
+a ich hodnoty som si nastavil podľa svojej databázy a v ReadMe je napísané, ako
+si ich nastaviť, aby sa dala pripojiť iná databáza.
+
+Zabezpečenie endpointov:
+
+Pri každom zadanom vstupe sa vypíše, čo sa vykonalo
+(uživateľ je zaregistrovaný, vytvoril sa zoznam,...), ale nie iba pri úspešných operáciach,
+ale aj pri napríklad zle zadanom vstupe sa vypíše, prečo bol vstup chybný (joi).
+Väčšina výpisov je inak jedna veta, ktorá informuje uživateľa o tom, čo sa stalo
+a je sprevádzaná HTTP status kódom.
+Jediný upravený výpis je deadline/dátum, ktorý som upravil z formátu YYYY-MM-DD na DD-MM-YYYY,
+lebo mi to prišlo ako zrozumiteľnejší spôsob výpisu.
+
+Miesto používania cesty v tvare napr. .../removeActivity/:id, kde sa vstupné id rovno
+čítajú z cesty, som si iba nechal kratšie cesty bez /:id, kvôli lepšiemu zadávaniu vstupov
+pre uživateľa. 
+Týmto spôsobom uživateľ zadáva mená či uŽ listu, aktivity, použivateľa, ... a nemusí používať id,
+ku ktorým vlastne nemá prístup kvôli tomu, že id nevypisujem.
+V prípade potreby by to ale bola krátka oprava, lebo čítanie týchto vstupov je na zaciatku funkcie
+a zmena z môjho riešenia na riešenie s /:id by netrvala dlho.
